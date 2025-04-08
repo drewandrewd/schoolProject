@@ -1,8 +1,11 @@
 package com.example.schoolproject.mapper;
 
 import com.example.schoolproject.dto.TaskDTO;
+import com.example.schoolproject.dto.TaskStatusUpdateDTO;
 import com.example.schoolproject.entity.Task;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 /**
  * Маппер для преобразования между сущностью {@link Task} и DTO {@link TaskDTO}.
@@ -28,4 +31,16 @@ public interface MainMapper {
      * @return DTO {@link TaskDTO}
      */
     TaskDTO toDTO(Task entity);
+
+    /**
+     * Преобразует сущность Task в DTO для Kafka.
+     *
+     * @param task сущность задачи
+     * @return DTO со статусом
+     */
+    @Mappings({
+            @Mapping(source = "id", target = "taskId"),
+            @Mapping(source = "status", target = "newStatus")
+    })
+    TaskStatusUpdateDTO toStatusUpdateDTO(Task task);
 }

@@ -35,6 +35,8 @@
         <postgresql.version>42.7.5</postgresql.version>
         <spring-aop.version>3.4.4</spring-aop.version>
         <mockito.version>5.14.2</mockito.version>
+        <kafka.version>3.3.2</kafka.version>
+        <mail.version>3.4.2</mail.version>
     </properties>
     <dependencies>
         <dependency>
@@ -91,6 +93,16 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>${mail.version}</version>
         </dependency>
     </dependencies>
 
