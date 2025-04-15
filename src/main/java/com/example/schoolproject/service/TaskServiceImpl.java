@@ -1,6 +1,6 @@
 package com.example.schoolproject.service;
 
-import com.example.schoolproject.aspect.annotation.LogExecution;
+import com.example.logstarter.annotation.LogExecution;
 import com.example.schoolproject.dto.TaskDTO;
 import com.example.schoolproject.dto.TaskStatusUpdateDTO;
 import com.example.schoolproject.entity.Task;
