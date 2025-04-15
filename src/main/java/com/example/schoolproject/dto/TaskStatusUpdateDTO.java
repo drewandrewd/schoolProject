@@ -2,6 +2,7 @@ package com.example.schoolproject.dto;
 
 import com.example.schoolproject.entity.TaskStatus;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +12,9 @@ import lombok.Setter;
  * <p>
  * Используется при отправке и получении сообщений в Kafka, содержащих ID задачи и её новый статус.
  */
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class TaskStatusUpdateDTO {
     private Long taskId;
     private TaskStatus newStatus;
