@@ -2,11 +2,15 @@ package com.example.schoolproject.service;
 
 import com.example.schoolproject.aspect.annotation.LogExecution;
 import com.example.schoolproject.dto.TaskDTO;
+import com.example.schoolproject.dto.TaskStatusUpdateDTO;
 import com.example.schoolproject.entity.Task;
+import com.example.schoolproject.entity.TaskStatus;
 import com.example.schoolproject.exception.TaskNotFoundException;
+import com.example.schoolproject.kafka.KafkaTaskProducer;
 import com.example.schoolproject.mapper.MainMapper;
 import com.example.schoolproject.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +27,10 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
     private final MainMapper mapper;
+    private final KafkaTaskProducer kafkaProducer;
+
+    @Value("${task.kafka.topic.status-updated}")
+    private String kafkaTopic;
 
     /**
      * Возвращает список всех задач.
@@ -86,10 +94,19 @@ public class TaskServiceImpl implements TaskService {
     public TaskDTO updateTask(Long id, TaskDTO taskDTO) {
         Task currTask = repository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
+        TaskStatus oldStatus = currTask.getStatus();
         currTask.setDescription(taskDTO.getDescription());
         currTask.setTitle(taskDTO.getTitle());
         currTask.setUserId(taskDTO.getUserId());
-        return mapper.toDTO(repository.save(currTask));
+        currTask.setStatus(taskDTO.getStatus());
+        Task updated = repository.save(currTask);
+
+        if (!oldStatus.equals(taskDTO.getStatus())) {
+            TaskStatusUpdateDTO kafkaDTO = mapper.toStatusUpdateDTO(updated);
+            kafkaProducer.sendTo(kafkaTopic, kafkaDTO);
+        }
+
+        return mapper.toDTO(updated);
     }
 
     /**

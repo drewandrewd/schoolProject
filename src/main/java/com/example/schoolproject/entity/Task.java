@@ -1,6 +1,9 @@
 package com.example.schoolproject.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
@@ -28,6 +31,10 @@ public class Task {
     private String title;
     private String description;
     private Long userId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus status;
 
     @Override
     public int hashCode() {

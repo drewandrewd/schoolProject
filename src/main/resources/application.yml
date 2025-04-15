@@ -12,3 +12,35 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+    listener:
+      type: batch
+      ack-mode: manual
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: andrewid10@gmail.com
+    password: wfip lhcb frja sauo
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+task:
+  kafka:
+    topic:
+      status-updated: task-status-topic
+    consumer:
+      group-id: task-status-group
+
+app:
+  mail:
+    default-recipient: andrewid10@gmail.com
