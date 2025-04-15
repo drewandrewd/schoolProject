@@ -1,5 +1,6 @@
 package com.example.schoolproject.dto;
 
+import com.example.schoolproject.entity.TaskStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TaskStatusUpdateDTO {
     private Long taskId;
-    private String newStatus;
+    private TaskStatus newStatus;
 }

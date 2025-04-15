@@ -37,6 +37,7 @@
         <mockito.version>5.14.2</mockito.version>
         <kafka.version>3.3.2</kafka.version>
         <mail.version>3.4.2</mail.version>
+        <messaging.version>6.2.5</messaging.version>
     </properties>
     <dependencies>
         <dependency>
@@ -103,6 +104,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>${mail.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>${messaging.version}</version>
         </dependency>
     </dependencies>
 

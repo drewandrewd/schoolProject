@@ -1,6 +1,7 @@
 package com.example.schoolproject.config;
 
 import com.example.schoolproject.dto.TaskStatusUpdateDTO;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -61,6 +62,16 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, TaskStatusUpdateDTO> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
+        return factory;
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, TaskStatusUpdateDTO> kafkaBatchListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, TaskStatusUpdateDTO> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+        factory.setBatchListener(true);
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }
 }

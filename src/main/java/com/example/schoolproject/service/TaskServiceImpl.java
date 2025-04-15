@@ -4,6 +4,7 @@ import com.example.schoolproject.aspect.annotation.LogExecution;
 import com.example.schoolproject.dto.TaskDTO;
 import com.example.schoolproject.dto.TaskStatusUpdateDTO;
 import com.example.schoolproject.entity.Task;
+import com.example.schoolproject.entity.TaskStatus;
 import com.example.schoolproject.exception.TaskNotFoundException;
 import com.example.schoolproject.kafka.KafkaTaskProducer;
 import com.example.schoolproject.mapper.MainMapper;
@@ -93,7 +94,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskDTO updateTask(Long id, TaskDTO taskDTO) {
         Task currTask = repository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException(id));
-        String oldStatus = currTask.getStatus();
+        TaskStatus oldStatus = currTask.getStatus();
         currTask.setDescription(taskDTO.getDescription());
         currTask.setTitle(taskDTO.getTitle());
         currTask.setUserId(taskDTO.getUserId());

@@ -22,7 +22,7 @@ public class KafkaTaskProducer {
 
     public void sendTo(String topic, TaskStatusUpdateDTO dto) {
         try {
-            kafkaTemplate.send(topic, dto).get();
+            kafkaTemplate.send(topic, dto);
             kafkaTemplate.flush();
             log.info("KafkaProducer: message sent to topic [{}]: {}", topic, dto);
         } catch (Exception ex) {

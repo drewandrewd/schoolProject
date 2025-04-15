@@ -15,6 +15,12 @@ spring:
 
   kafka:
     bootstrap-servers: localhost:9092
+    consumer:
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+    listener:
+      type: batch
+      ack-mode: manual
 
   mail:
     host: smtp.gmail.com
@@ -34,3 +40,7 @@ task:
       status-updated: task-status-topic
     consumer:
       group-id: task-status-group
+
+app:
+  mail:
+    default-recipient: andrewid10@gmail.com
