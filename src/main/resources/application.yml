@@ -44,3 +44,7 @@ task:
 app:
   mail:
     default-recipient: andrewid10@gmail.com
+
+logstarter:
+  enabled: true
+  level: debug
